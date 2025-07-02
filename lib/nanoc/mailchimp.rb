@@ -42,6 +42,7 @@ module Nanoc
               campaigns.settings.title
             ]
           )
+          .fetch("campaigns")
           .each do |campaign|
             pool.post do
               content =
