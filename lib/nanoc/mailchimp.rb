@@ -5,7 +5,8 @@ require "MailchimpMarketing"
 module Nanoc
   module Mailchimp
     class Source < Nanoc::DataSource
-      Campaign = Data.define(:id, :title, :send_time, :plain_text, :html)
+      Campaign =
+        Data.define(:id, :title, :subject_line, :send_time, :plain_text, :html)
 
       identifier :mailchimp
 
@@ -50,6 +51,7 @@ module Nanoc
               items << Campaign.new(
                 id: id,
                 title: campaign.dig("settings", "title"),
+                subject_line: campaign.dig("settings", "subject_line"),
                 send_time: campaign.fetch("send_time"),
                 plain_text: content.fetch("plain_text"),
                 html: content.fetch("html")
