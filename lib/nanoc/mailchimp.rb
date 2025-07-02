@@ -45,15 +45,12 @@ module Nanoc
           .fetch("campaigns")
           .each do |campaign|
             pool.post do
-              content =
-                client.campaigns.get_content(
-                  id = campaign.dig("campaigns", "id")
-                )
+              content = client.campaigns.get_content(id = campaign.fetch("id"))
 
               items << Campaign.new(
                 id: id,
-                title: campaign.dig("campaigns", "settings", "title"),
-                send_time: campaign.dig("campaigns", "send_time"),
+                title: campaign.dig("settings", "title"),
+                send_time: campaign.fetch("send_time"),
                 plain_text: content.fetch("plain_text"),
                 html: content.fetch("html")
               )
