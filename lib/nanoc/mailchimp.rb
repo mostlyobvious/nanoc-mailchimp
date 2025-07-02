@@ -41,6 +41,7 @@ module Nanoc
               campaigns.id
               campaigns.send_time
               campaigns.settings.title
+              campaigns.settings.subject_line
             ]
           )
           .fetch("campaigns")
