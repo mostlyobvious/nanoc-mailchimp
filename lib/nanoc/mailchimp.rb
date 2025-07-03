@@ -15,6 +15,7 @@ module Nanoc
           begin
             campaigns
               .sort_by { |campaign| campaign.send_time }
+              .reverse
               .map do |campaign|
                 new_item(
                   "",
@@ -45,6 +46,8 @@ module Nanoc
             ]
           )
           .fetch("campaigns")
+          .reverse
+          .take(limit)
           .each do |campaign|
             pool.post do
               content = client.campaigns.get_content(id = campaign.fetch("id"))
@@ -70,6 +73,10 @@ module Nanoc
 
       def api_key
         @config[:api_key]
+      end
+
+      def limit
+        @config[:limit] || 1000
       end
     end
   end
